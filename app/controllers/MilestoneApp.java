@@ -43,6 +43,10 @@ import views.html.milestone.view;
 
 import java.util.List;
 
+//추가
+import java.util.Map;
+import java.util.HashMap;
+
 import static play.data.Form.form;
 
 @AnonymousCheck
@@ -72,9 +76,36 @@ public class MilestoneApp extends Controller {
                 State.getValue(mCondition.state),
                 mCondition.orderBy,
                 Direction.getValue(mCondition.orderDir));
-
+        if ("dueDate".equals(mCondition.orderBy)) {
+            final Direction dir = Direction.getValue(mCondition.orderDir);
+            // 1) 숫자 접두사만 한 번 파싱해서 Map에 저장
+            Map<Milestone, Integer> prefixCache = new HashMap<>();
+            for (Milestone m : milestones) {
+                prefixCache.put(m, parseLeadingInt(m.title));
+            }
+            // 2) 캐시된 값을 바로 비교
+            milestones.sort((m1, m2) -> {
+                int n1 = prefixCache.get(m1);
+                int n2 = prefixCache.get(m2);
+                return (dir == Direction.ASC)
+                        ? Integer.compare(n1, n2)
+                        : Integer.compare(n2, n1);
+            });
+        }
         return ok(list.render("milestone", milestones, project, mCondition));
     }
+
+    // 숫자 접두사만 뽑아내는 헬퍼 메소드
+    private static Integer parseLeadingInt(String title) {
+        try {
+            String numStr = title.split("\\D+", 2)[0];
+            return Integer.valueOf(numStr);
+        } catch (Exception e) {
+            // 접두사에 숫자가 없으면 맨 뒤로
+            return Integer.MAX_VALUE;
+        }
+    }
+
 
     /**
      * when: GET /:user/:project/newMilestoneForm
@@ -108,6 +139,7 @@ public class MilestoneApp extends Controller {
             newMilestone.dueDate = JodaDateUtil.lastSecondOfDay(newMilestone.dueDate);
             Milestone.create(newMilestone);
             AbstractPostingApp.attachUploadFilesToPost(newMilestone.asResource());
+//            Attachment.moveAll(UserApp.currentUser().asResource(), newMilestone.asResource());
             return redirect(routes.MilestoneApp.milestone(userName, projectName, newMilestone.id));
         }
     }
@@ -165,7 +197,8 @@ public class MilestoneApp extends Controller {
 
             milestone.dueDate = JodaDateUtil.lastSecondOfDay(milestone.dueDate);
             existingMilestone.updateWith(milestone);
-            Attachment.moveAll(UserApp.currentUser().asResource(), existingMilestone.asResource());
+            AbstractPostingApp.attachUploadFilesToPost(existingMilestone.asResource());
+//            Attachment.moveAll(UserApp.currentUser().asResource(), existingMilestone.asResource());
             return redirect(routes.MilestoneApp.milestone(userName, projectName, existingMilestone.id));
         }
     }

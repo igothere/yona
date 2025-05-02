@@ -32,7 +32,7 @@
 <div class="page-wrap-outer">
     <div class="project-page-wrap">
         <div class="content-wrap frm-wrap">
-            @form(action = routes.MilestoneApp.editMilestone(project.owner, project.name, milestone.id), 'id -> "milestone-form") {
+            @form(action = routes.MilestoneApp.editMilestone(project.owner, project.name, milestone.id), 'id -> "milestone-form", 'enctype -> "multipart/form-data") {
                 <div class="row-fluid">
                     <div class="span12">
                         <dl>

@@ -6,7 +6,8 @@
 POST           /                                                                      controllers.Application.fake()
 
 # Home page
-GET            /                                                                      controllers.Application.index()
+# GET            /                                                                      controllers.Application.index()
+GET            /                                                                      controllers.UserApp.loginForm()
 GET            /notifications                                                         controllers.Application.notifications()
 
 # Play!Authenticate

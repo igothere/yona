@@ -104,6 +104,7 @@
                                 @if(issue.state == State.OPEN){
                                     data-toggle="tooltip" data-placement="top" title="@issue.getDueDateString"
                                     }>
+                                @issue.getDueDateString()
                                 <i class="yobicon-clock2 mr3 vmiddle"></i>
                                 <span class="vmiddle">
                                 @if(issue.state == State.OPEN){

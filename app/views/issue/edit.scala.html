@@ -138,7 +138,7 @@
                                             @Messages("issue.noMilestone")
                                         </option>
                                         <optgroup label="@Messages("milestone.state.open")">
-                                        @for(milestone <- Milestone.findOpenMilestones(project.id)){
+                                        @for(milestone <- Milestone.findOpenMilestones(project.id).sortBy(_.title)){
                                             <option value="@milestone.id" data-state="@milestone.state"
                                             @if(hasMilestone && issue.milestone.id == milestone.id){
                                                 selected

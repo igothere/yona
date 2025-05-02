@@ -41,7 +41,7 @@ libraryDependencies ++= Seq(
   // commons-codec
   "commons-codec" % "commons-codec" % "1.2",
   // apache-mails
-  "org.apache.commons" % "commons-email" % "1.2",
+  "org.apache.commons" % "commons-email" % "1.5",
   "info.schleichardt" %% "play-2-mailplugin" % "0.9.1",
   "commons-lang" % "commons-lang" % "2.6",
   "org.apache.tika" % "tika-core" % "1.2",
@@ -60,6 +60,7 @@ libraryDependencies ++= Seq(
   "javax.xml.bind" % "jaxb-api" % "2.3.0",
   "com.github.mfornos" % "humanize-slim" % "1.2.2",
   "org.jsoup" % "jsoup" % "1.8.3"
+  //"org.avaje.ebeanorm" % "avaje-ebeanorm" % "3.3.4"
 )
 
 val projectSettings = Seq(
