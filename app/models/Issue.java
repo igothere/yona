@@ -307,6 +307,7 @@ public class Issue extends AbstractPosting implements LabelOwner {
         String[] titles = {"No",
                 Messages.get("issue.state"),
                 Messages.get("title"),
+                Messages.get("issue.author"),
                 Messages.get("issue.assignee"),
                 Messages.get("issue.content"),
                 Messages.get("issue.label"),
@@ -333,6 +334,7 @@ public class Issue extends AbstractPosting implements LabelOwner {
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, issue.getNumber().toString(), bodyCellFormat));
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, issue.state.toString(), bodyCellFormat));
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, issue.title, bodyCellFormat));
+            sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, issue.authorName, bodyCellFormat));
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, getAssigneeName(issue.assignee), bodyCellFormat));
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, issue.body, bodyCellFormat));
             sheet.addCell(new jxl.write.Label(columnPos++, lineNumber, getIssueLabels(issue), bodyCellFormat));

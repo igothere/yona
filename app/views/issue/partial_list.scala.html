@@ -35,9 +35,12 @@
                                 @if(issue.weight > 0) {<span class="weight-up-arrow" data-toggle="tooltip" data-placement="right" title="@Messages("issue.weight") @issue.weight"><i class="yobicon-angle-circled-up"></i></span>}
                                 @if(issue.weight < 0) {<span class="weight-down-arrow" data-toggle="tooltip" data-placement="right" title="@Messages("issue.weight") @issue.weight"><i class="yobicon-angle-circled-down"></i></span>}
                                 @showHeaderWordsInBracketsIfExist(issue.title)
-                                <a href="@routes.IssueApp.issue(project.owner, project.name, issue.getNumber)" class="title">
-                                @removeHeaderWords(issue.title)
+                                <a href="@routes.IssueApp.issue(project.owner, project.name, issue.getNumber)" class="title">@removeHeaderWords(issue.title)</a>
+                                <div style="display: flex; justify-content: flex-end;">
+                                <a href="javascript:void(0);" class="ybtn ybtn-inverse ybtn-mini" onclick="window.open('@routes.IssueApp.issue(project.owner, project.name, issue.getNumber)', '_blank', 'width=1200,height=800');">
+                                팝업으로 보기
                                 </a>
+                                </div>
                             </div>
                             <div class="infos">
                                 @if(user.name){

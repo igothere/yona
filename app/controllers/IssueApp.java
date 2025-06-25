@@ -189,6 +189,7 @@ public class IssueApp extends AbstractPostingApp {
 
     private static Result issuesAsExcel(Project project, ExpressionList<Issue> el) throws WriteException, IOException {
         byte[] excelData = Issue.excelFrom(el.findList());
+        System.out.println("excel----------------------------------------");
         String filename = HttpUtil.encodeContentDisposition(
                 project.name + "_issues_" +  JodaDateUtil.getDateStringWithoutSpace(new Date()) + "." + EXCEL_EXT);
 
